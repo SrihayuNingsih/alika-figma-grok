@@ -5,91 +5,78 @@ import Image from 'next/image'
 import { cn } from '@/lib/cn'
 import { X, BookOpen, ChefHat, Plane, Camera } from 'lucide-react'
 
-// Urutan sengaja kita acak + kasih size berbeda biar terasa random & hidup
 const galleryImages = [
-  {
-    url: '/images/gallery/gallery-3.jpg',
-    title: 'Study Session',
-    category: 'Learning',
-    description: 'My cozy study corner with coffee',
-    size: 'normal',
-  }, // portrait
   {
     url: '/images/gallery/gallery-1.jpg',
     title: 'Mount Bromo Sunset',
     category: 'Travel',
     description: 'Breathtaking sunset view from Mount Bromo',
-    size: 'wide',
-  }, // landscape besar
-  {
-    url: '/images/gallery/gallery-8.jpg',
-    title: 'Urban Street',
-    category: 'Photography',
-    description: 'Street photography in Jakarta',
-    size: 'verywide',
-  }, // portrait tall
-  {
-    url: '/images/gallery/gallery-6.jpg',
-    title: 'Fresh Vegetables',
-    category: 'Cooking',
-    description: 'Farm fresh vegetables for cooking',
-    size: 'wide',
-  },
-  {
-    url: '/images/gallery/gallery-10.jpg',
-    title: 'Temple Visit',
-    category: 'Travel',
-    description: 'Exploring cultural heritage',
-    size: 'normal',
-  },
-  {
-    url: '/images/gallery/gallery-4.jpg',
-    title: 'Golden Hour Beach',
-    category: 'Photography',
-    description: 'Capturing the perfect golden hour at the beach',
-    size: 'normal',
   },
   {
     url: '/images/gallery/gallery-2.jpg',
     title: 'Homemade Carbonara',
     category: 'Cooking',
     description: 'My first attempt at authentic Italian carbonara',
-    size: 'normal',
   },
   {
-    url: '/images/gallery/gallery-11.jpg',
-    title: 'Camera Gear',
+    url: '/images/gallery/gallery-3.jpg',
+    title: 'Study Session',
+    category: 'Learning',
+    description: 'My cozy study corner with coffee',
+  },
+  {
+    url: '/images/gallery/gallery-4.jpg',
+    title: 'Golden Hour Beach',
     category: 'Photography',
-    description: 'My photography equipment setup',
-    size: 'tall',
+    description: 'Capturing the perfect golden hour at the beach',
   },
   {
     url: '/images/gallery/gallery-5.jpg',
     title: 'Hiking Adventure',
     category: 'Travel',
     description: 'Mountain hiking with amazing views',
-    size: 'wide',
   },
   {
-    url: '/images/gallery/gallery-9.jpg',
-    title: 'Dessert Creation',
+    url: '/images/gallery/gallery-6.jpg',
+    title: 'Fresh Vegetables',
     category: 'Cooking',
-    description: 'My homemade dessert masterpiece',
-    size: 'normal',
+    description: 'Farm fresh vegetables for cooking',
   },
   {
     url: '/images/gallery/gallery-7.jpg',
     title: 'Library Study',
     category: 'Learning',
     description: 'Peaceful study time at the library',
-    size: 'normal',
+  },
+  {
+    url: '/images/gallery/gallery-8.jpg',
+    title: 'Urban Street',
+    category: 'Photography',
+    description: 'Street photography in Jakarta',
+  },
+  {
+    url: '/images/gallery/gallery-9.jpg',
+    title: 'Dessert Creation',
+    category: 'Cooking',
+    description: 'My homemade dessert masterpiece',
+  },
+  {
+    url: '/images/gallery/gallery-10.jpg',
+    title: 'Temple Visit',
+    category: 'Travel',
+    description: 'Exploring cultural heritage',
+  },
+  {
+    url: '/images/gallery/gallery-11.jpg',
+    title: 'Camera Gear',
+    category: 'Photography',
+    description: 'My photography equipment setup',
   },
   {
     url: '/images/gallery/gallery-12.jpg',
     title: 'Note Taking',
     category: 'Learning',
     description: 'Organizing my study notes',
-    size: 'tall',
   },
 ]
 
@@ -109,19 +96,6 @@ export function Gallery() {
     selectedCategory === 'All'
       ? galleryImages
       : galleryImages.filter((img) => img.category === selectedCategory)
-
-  const getGridClass = (size: string) => {
-    switch (size) {
-      case 'wide':
-        return 'col-span-2 row-span-1'
-      case 'verywide':
-        return 'col-span-3 row-span-2'
-      case 'tall':
-        return 'col-span-1 row-span-2'
-      default:
-        return 'col-span-1 row-span-1'
-    }
-  }
 
   return (
     <section
@@ -161,15 +135,14 @@ export function Gallery() {
           })}
         </div>
 
-        {/* Dynamic Random Grid – Crop boleh, acak, ada besar-kecil */}
-        <div className="grid auto-rows-[200px] grid-cols-2 gap-4 md:auto-rows-[250px] md:grid-cols-4 lg:grid-cols-6">
+        {/* Gallery Grid */}
+        <div className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
           {filteredImages.map((image, index) => (
             <div
               key={index}
               className={cn(
-                'group relative cursor-pointer overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl',
-                'transition-all duration-500 hover:z-10 hover:scale-105',
-                getGridClass(image.size)
+                'group relative aspect-square cursor-pointer overflow-hidden rounded-2xl',
+                'bg-gray-100 shadow-md transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl'
               )}
               onClick={() => setSelectedImage(index)}
             >
@@ -177,12 +150,17 @@ export function Gallery() {
                 src={image.url}
                 alt={image.title}
                 fill
-                className="object-cover transition-transform duration-700 group-hover:scale-110"
+                className="object-cover transition-transform duration-500 group-hover:scale-110"
               />
               {/* Overlay */}
-              <div className="absolute inset-0 flex items-end bg-gradient-to-t from-black/80 via-transparent to-transparent p-4 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+              <div
+                className={cn(
+                  'absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent',
+                  'flex items-end p-4 opacity-0 transition-opacity duration-500 group-hover:opacity-100'
+                )}
+              >
                 <div className="text-white">
-                  <h3 className="mb-1 text-lg font-bold">{image.title}</h3>
+                  <h3 className="mb-1 text-lg font-semibold">{image.title}</h3>
                   <p className="text-sm text-gray-200">{image.category}</p>
                 </div>
               </div>
@@ -190,46 +168,37 @@ export function Gallery() {
           ))}
         </div>
 
-        {/* Lightbox Modal – DIPERBAIKI: center sempurna semua layar + X aman */}
+        {/* Lightbox Modal */}
         {selectedImage !== null && (
           <div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 p-4 md:p-8"
+            className="animate-in fade-in fixed inset-0 z-50 flex items-center justify-center bg-black/95 p-4 duration-300"
             onClick={() => setSelectedImage(null)}
           >
-            {/* Tombol Close – posisi aman di pojok kanan atas */}
             <button
-              className="absolute top-4 right-4 z-20 rounded-full bg-black/50 p-2 text-white transition-colors hover:text-orange-500 md:top-8 md:right-8"
-              onClick={(e) => {
-                e.stopPropagation()
-                setSelectedImage(null)
-              }}
+              className="absolute top-6 right-6 z-10 text-white transition-colors hover:text-orange-500"
+              onClick={() => setSelectedImage(null)}
             >
               <X size={36} />
             </button>
 
-            {/* Container gambar + caption */}
-            <div className="flex max-h-full w-full max-w-5xl flex-col items-center justify-center">
-              {/* Gambar – center sempurna, responsif, tidak crop */}
-              <div className="relative flex max-h-[70vh] w-full items-center justify-center md:max-h-[80vh]">
+            <div className="w-full max-w-5xl">
+              <div className="relative mx-auto mb-8 aspect-video max-h-[80vh] md:aspect-auto">
                 <Image
                   src={filteredImages[selectedImage].url}
                   alt={filteredImages[selectedImage].title}
-                  width={1200}
-                  height={1200}
-                  className="max-h-full max-w-full rounded-2xl object-contain shadow-2xl"
-                  priority
+                  fill
+                  className="rounded-2xl object-contain"
                 />
               </div>
 
-              {/* Caption */}
-              <div className="mt-6 px-4 text-center text-white">
-                <h3 className="mb-2 text-2xl font-bold md:text-3xl">
+              <div className="text-center text-white">
+                <h3 className="mb-3 text-3xl font-bold md:text-4xl">
                   {filteredImages[selectedImage].title}
                 </h3>
-                <p className="mb-3 max-w-2xl text-base text-gray-300 md:text-lg">
+                <p className="mx-auto mb-4 max-w-2xl text-lg text-gray-300">
                   {filteredImages[selectedImage].description}
                 </p>
-                <span className="inline-block rounded-full bg-orange-500 px-5 py-2 text-sm font-medium">
+                <span className="inline-block rounded-full bg-orange-500 px-6 py-2 text-sm font-medium">
                   {filteredImages[selectedImage].category}
                 </span>
               </div>
