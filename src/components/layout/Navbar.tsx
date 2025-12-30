@@ -31,14 +31,14 @@ export function Navbar() {
 
   return (
     <>
-      {/* Navbar – z-[999] biar pasti di atas segalanya */}
+      {/* Navbar – z-index tinggi + padding aman di mobile */}
       <header
         className={cn(
-          "fixed top-0 left-0 right-0 z-[999] transition-all duration-300 pointer-events-none",
+          "fixed top-0 left-0 right-0 z-[999] transition-all duration-300",
           isScrolled ? "bg-white/90 shadow-lg backdrop-blur-md" : "bg-transparent"
         )}
       >
-        <nav className="container mx-auto px-6 flex items-center justify-between h-20 pointer-events-auto">
+        <div className="mx-auto flex h-20 items-center justify-between px-4 md:px-8 lg:px-16">
           {/* Logo */}
           <button
             onClick={() => scrollToTopOrSection("home")}
@@ -70,7 +70,7 @@ export function Navbar() {
             ))}
           </div>
 
-          {/* Hamburger – di dalam flow, center vertikal */}
+          {/* Hamburger – Posisi aman di mobile */}
           <button
             className="md:hidden"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -86,10 +86,10 @@ export function Navbar() {
               </svg>
             )}
           </button>
-        </nav>
+        </div>
       </header>
 
-      {/* Mobile Menu – polaroid cards (sama seperti sebelumnya) */}
+      {/* Mobile Fullscreen Menu – Polaroid Cards */}
       <div
         className={cn(
           "fixed inset-0 z-[998] flex items-center justify-center bg-gradient-to-br from-pink-100 via-orange-50 to-yellow-50 transition-transform duration-500 md:hidden",
