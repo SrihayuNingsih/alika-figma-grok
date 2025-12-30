@@ -103,7 +103,7 @@ export function Navbar() {
             {/* Mobile Menu Button – Hamburger orange SVG dari online, close X span */}
             {/* Mobile Menu Button – GANTI SELURUH BUTTON INI */}
             <button
-              className="absolute top-1/2 right-4 z-50 -translate-y-1/2 md:hidden"
+              className="absolute top-1/2 right-4 z-60 -translate-y-1/2 md:hidden"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
               {isMenuOpen ? (
