@@ -31,14 +31,14 @@ export function Navbar() {
 
   return (
     <>
-      {/* Navbar – z-[100] biar pasti di atas Hero overlay */}
+      {/* Navbar – z-[999] biar pasti di atas segalanya */}
       <header
         className={cn(
-          "fixed top-0 left-0 right-0 z-[100] transition-all duration-300",
-          isScrolled ? "bg-white/80 shadow-lg backdrop-blur-md" : "bg-transparent"
+          "fixed top-0 left-0 right-0 z-[999] transition-all duration-300 pointer-events-none",
+          isScrolled ? "bg-white/90 shadow-lg backdrop-blur-md" : "bg-transparent"
         )}
       >
-        <nav className="container mx-auto px-6 py-4 flex items-center justify-between">
+        <nav className="container mx-auto px-6 flex items-center justify-between h-20 pointer-events-auto">
           {/* Logo */}
           <button
             onClick={() => scrollToTopOrSection("home")}
@@ -70,36 +70,18 @@ export function Navbar() {
             ))}
           </div>
 
-          {/* Hamburger Button */}
+          {/* Hamburger – di dalam flow, center vertikal */}
           <button
-            className="md:hidden z-[101]"
+            className="md:hidden"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Toggle menu"
           >
             {isMenuOpen ? (
-              <svg
-                width="32"
-                height="32"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="text-gray-900"
-              >
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                 <path d="M18 6L6 18M6 6l12 12" />
               </svg>
             ) : (
-              <svg
-                width="32"
-                height="32"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#f97316"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-              >
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#f97316" strokeWidth="2.5">
                 <path d="M4 6h16M4 12h16M4 18h16" />
               </svg>
             )}
@@ -107,10 +89,10 @@ export function Navbar() {
         </nav>
       </header>
 
-      {/* Mobile Fullscreen Menu – Polaroid Cards */}
+      {/* Mobile Menu – polaroid cards (sama seperti sebelumnya) */}
       <div
         className={cn(
-          "fixed inset-0 z-90 flex items-center justify-center bg-gradient-to-br from-pink-100 via-orange-50 to-yellow-50 transition-transform duration-500 md:hidden",
+          "fixed inset-0 z-[998] flex items-center justify-center bg-gradient-to-br from-pink-100 via-orange-50 to-yellow-50 transition-transform duration-500 md:hidden",
           isMenuOpen ? "translate-x-0" : "translate-x-full"
         )}
       >
