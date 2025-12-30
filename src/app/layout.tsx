@@ -14,8 +14,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="id">
-      <body className="min-h-screen bg-gray-50 antialiased dark:bg-gray-950">
+    <html lang="id" className="overflow-x-hidden">
+      <body className="min-h-screen overflow-x-hidden bg-gray-50 antialiased dark:bg-gray-950">
         {/* Navbar akan muncul di semua halaman */}
         <Navbar />
 

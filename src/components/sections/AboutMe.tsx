@@ -105,6 +105,7 @@ export function AboutMe() {
                 <br />
                 Fotografi adalah caraku mengabadikan semua momen itu, karena
                 bagiku, kamera adalah cara terbaik untuk menghentikan waktu.{' '}
+                <br />{' '}
                 <span className="font-bold text-orange-600 italic">
                   Life is an adventure, and I'm just here to capture it all!
                 </span>
