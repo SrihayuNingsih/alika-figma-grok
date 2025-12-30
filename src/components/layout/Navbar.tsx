@@ -31,116 +31,86 @@ export function Navbar() {
 
   return (
     <>
-      {/* Desktop + Mobile Navbar – DIPERBAIKI: z-[60] biar di atas Hero overlay */}
+      {/* Navbar – z-[100] biar pasti di atas Hero overlay */}
       <header
         className={cn(
-          "fixed top-0 left-0 right-0 z-[60] transition-all duration-300", // ← z-[60] penting!
-          isScrolled ? "bg-white/70 shadow-md backdrop-blur-md" : "bg-transparent"
+          "fixed top-0 left-0 right-0 z-[100] transition-all duration-300",
+          isScrolled ? "bg-white/80 shadow-lg backdrop-blur-md" : "bg-transparent"
         )}
       >
-        <nav
-          className={cn(
-            "relative container mx-auto px-6", // ← px-6 biar lebih aman di mobile
-            isScrolled ? "h-16" : "h-20 md:h-24"
-          )}
-        >
-          <div className="flex h-full items-center justify-between">
-            {/* Logo – DIPERBAIKI: hilangkan border/outline */}
-            <div className="absolute left-6 top-1/2 -translate-y-1/2">
+        <nav className="container mx-auto px-6 py-4 flex items-center justify-between">
+          {/* Logo */}
+          <button
+            onClick={() => scrollToTopOrSection("home")}
+            className="flex items-center gap-1 text-2xl md:text-4xl font-bold focus:outline-none"
+          >
+            <span className={cn("italic", isScrolled ? "text-black" : "text-orange-500")}>
+              Alika
+            </span>
+            <span className={cn(isScrolled ? "text-orange-500" : "text-white")}>
+              Cheryl
+            </span>
+          </button>
+
+          {/* Desktop Menu */}
+          <div className="hidden md:flex items-center gap-6">
+            {["home", "about", "blog", "gallery", "contact"].map((section) => (
               <button
-                onClick={() => scrollToTopOrSection("home")}
+                key={section}
+                onClick={() => scrollToTopOrSection(section)}
                 className={cn(
-                  "flex items-center gap-1 transition-all duration-300 outline-none ring-0 focus-visible:ring-2 focus-visible:ring-orange-500/50 rounded-lg",
-                  "text-2xl sm:text-3xl md:text-4xl",
-                  "max-sm:text-xl",
-                  "max-sm:isScrolled:text-lg",
-                  "md:isScrolled:text-3xl"
+                  "px-5 py-2 rounded-full capitalize font-medium transition-all",
+                  isScrolled
+                    ? "text-gray-800 hover:bg-gray-100"
+                    : "text-white hover:bg-white/20"
                 )}
               >
-                <span
-                  className={cn(
-                    "font-bold italic",
-                    isScrolled ? "text-black" : "text-orange-500"
-                  )}
-                >
-                  Alika
-                </span>
-                <span
-                  className={cn(
-                    "font-bold",
-                    isScrolled ? "text-orange-500" : "text-white"
-                  )}
-                >
-                  Cheryl
-                </span>
+                {section === "home" ? "Home" : section}
               </button>
-            </div>
-
-            {/* Desktop Navigation */}
-            <div className="ml-auto hidden items-center gap-4 md:flex">
-              {["home", "about", "blog", "gallery", "contact"].map((section) => (
-                <button
-                  key={section}
-                  onClick={() => scrollToTopOrSection(section)}
-                  className={cn(
-                    "rounded-full px-5 py-2.5 text-lg font-medium capitalize transition-all duration-300",
-                    isScrolled
-                      ? section === "home"
-                        ? "bg-orange-500 text-white hover:bg-orange-600"
-                        : "text-gray-800 hover:bg-gray-100"
-                      : section === "home"
-                      ? "bg-white text-gray-800 hover:bg-orange-100"
-                      : "text-white hover:bg-white/20"
-                  )}
-                >
-                  {section === "home" ? "Home" : section}
-                </button>
-              ))}
-            </div>
-
-            {/* Mobile Menu Button – DIPERBAIKI: right-6 */}
-            <button
-              className="absolute right-6 top-1/2 z-50 -translate-y-1/2 md:hidden"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              aria-label="Toggle menu"
-            >
-              {isMenuOpen ? (
-                <svg
-                  width="32"
-                  height="32"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="text-gray-900 transition-all"
-                >
-                  <path d="M18 6L6 18M6 6l12 12" />
-                </svg>
-              ) : (
-                <svg
-                  width="32"
-                  height="32"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="#f97316"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                  className="transition-all"
-                >
-                  <path d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-              )}
-            </button>
+            ))}
           </div>
+
+          {/* Hamburger Button */}
+          <button
+            className="md:hidden z-[101]"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            {isMenuOpen ? (
+              <svg
+                width="32"
+                height="32"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="text-gray-900"
+              >
+                <path d="M18 6L6 18M6 6l12 12" />
+              </svg>
+            ) : (
+              <svg
+                width="32"
+                height="32"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#f97316"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+              >
+                <path d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            )}
+          </button>
         </nav>
       </header>
 
-      {/* Mobile Fullscreen Menu – Tetap cantik polaroid cards */}
+      {/* Mobile Fullscreen Menu – Polaroid Cards */}
       <div
         className={cn(
-          "fixed inset-0 z-40 flex items-center justify-center overflow-hidden bg-gradient-to-br from-pink-100 via-orange-50 to-yellow-50 transition-transform duration-500 md:hidden",
+          "fixed inset-0 z-90 flex items-center justify-center bg-gradient-to-br from-pink-100 via-orange-50 to-yellow-50 transition-transform duration-500 md:hidden",
           isMenuOpen ? "translate-x-0" : "translate-x-full"
         )}
       >
