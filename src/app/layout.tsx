@@ -15,7 +15,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="id">
-      <body className="min-h-screen bg-gray-50 antialiased dark:bg-gray-950">
+      <body className="min-h-screen overflow-x-hidden bg-gray-50 antialiased dark:bg-gray-950">
         {/* Navbar akan muncul di semua halaman */}
         <Navbar />
 
