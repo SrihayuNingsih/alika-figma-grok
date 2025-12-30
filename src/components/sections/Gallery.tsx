@@ -2,10 +2,10 @@
 
 import { useState } from 'react'
 import Image from 'next/image'
+import { motion } from 'framer-motion'
 import { cn } from '@/lib/cn'
 import { X, BookOpen, ChefHat, Plane, Camera } from 'lucide-react'
 
-// Urutan sengaja kita acak + kasih size berbeda biar terasa random & hidup
 const galleryImages = [
   {
     url: '/images/gallery/gallery-3.jpg',
@@ -13,21 +13,21 @@ const galleryImages = [
     category: 'Learning',
     description: 'My cozy study corner with coffee',
     size: 'normal',
-  }, // portrait
+  },
   {
     url: '/images/gallery/gallery-1.jpg',
     title: 'Mount Bromo Sunset',
     category: 'Travel',
     description: 'Breathtaking sunset view from Mount Bromo',
     size: 'wide',
-  }, // landscape besar
+  },
   {
     url: '/images/gallery/gallery-8.jpg',
     title: 'Urban Street',
     category: 'Photography',
     description: 'Street photography in Jakarta',
     size: 'verywide',
-  }, // portrait tall
+  },
   {
     url: '/images/gallery/gallery-6.jpg',
     title: 'Fresh Vegetables',
@@ -54,14 +54,21 @@ const galleryImages = [
     title: 'Homemade Carbonara',
     category: 'Cooking',
     description: 'My first attempt at authentic Italian carbonara',
-    size: 'normal',
+    size: 'wide',
   },
   {
     url: '/images/gallery/gallery-11.jpg',
     title: 'Camera Gear',
     category: 'Photography',
     description: 'My photography equipment setup',
-    size: 'tall',
+    size: 'verytall',
+  },
+  {
+    url: '/images/gallery/gallery-12.jpg',
+    title: 'Note Taking',
+    category: 'Learning',
+    description: 'Organizing my study notes',
+    size: 'normal',
   },
   {
     url: '/images/gallery/gallery-5.jpg',
@@ -83,13 +90,6 @@ const galleryImages = [
     category: 'Learning',
     description: 'Peaceful study time at the library',
     size: 'normal',
-  },
-  {
-    url: '/images/gallery/gallery-12.jpg',
-    title: 'Note Taking',
-    category: 'Learning',
-    description: 'Organizing my study notes',
-    size: 'tall',
   },
 ]
 
@@ -113,13 +113,15 @@ export function Gallery() {
   const getGridClass = (size: string) => {
     switch (size) {
       case 'wide':
-        return 'col-span-2 row-span-1'
+        return 'col-span-2'
       case 'verywide':
         return 'col-span-3 row-span-2'
       case 'tall':
-        return 'col-span-1 row-span-2'
+        return 'row-span-2'
+      case 'verytall':
+        return 'row-span-3 col-span-2'
       default:
-        return 'col-span-1 row-span-1'
+        return 'col-span-1'
     }
   }
 
@@ -130,17 +132,29 @@ export function Gallery() {
     >
       <div className="container mx-auto max-w-7xl">
         {/* Title */}
-        <div className="mb-16 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="mb-16 text-center"
+        >
           <h2 className="mb-4 text-4xl font-bold md:text-5xl">
             Photo <span className="text-orange-500">Gallery</span>
           </h2>
           <p className="text-lg text-gray-600">
             My favorite captured moments 📸
           </p>
-        </div>
+        </motion.div>
 
         {/* Filter Buttons */}
-        <div className="mb-12 flex flex-wrap justify-center gap-4">
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.3 }}
+          className="mb-12 flex flex-wrap justify-center gap-4"
+        >
           {categories.map((category) => {
             const Icon = category.icon
             return (
@@ -159,16 +173,33 @@ export function Gallery() {
               </button>
             )
           })}
-        </div>
+        </motion.div>
 
-        {/* Dynamic Random Grid – Crop boleh, acak, ada besar-kecil */}
-        <div className="grid auto-rows-[200px] grid-cols-2 gap-4 md:auto-rows-[250px] md:grid-cols-4 lg:grid-cols-6">
+        {/* Dynamic Grid with Framer Motion */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-100px' }}
+          variants={{
+            hidden: {},
+            visible: {
+              transition: { staggerChildren: 0.1 },
+            },
+          }}
+          className="grid auto-rows-[200px] grid-cols-2 gap-4 md:auto-rows-[250px] md:grid-cols-4 lg:grid-cols-6"
+        >
           {filteredImages.map((image, index) => (
-            <div
+            <motion.div
               key={index}
+              variants={{
+                hidden: { opacity: 0, y: 40, scale: 0.9 },
+                visible: { opacity: 1, y: 0, scale: 1 },
+              }}
+              whileHover={{ scale: 1.08, y: -8 }}
+              transition={{ type: 'spring', stiffness: 300 }}
               className={cn(
-                'group relative cursor-pointer overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl',
-                'transition-all duration-500 hover:z-10 hover:scale-105',
+                'group relative cursor-pointer overflow-hidden rounded-2xl shadow-lg',
+                'transition-all duration-500 hover:z-10 hover:shadow-2xl',
                 getGridClass(image.size)
               )}
               onClick={() => setSelectedImage(index)}
@@ -186,17 +217,16 @@ export function Gallery() {
                   <p className="text-sm text-gray-200">{image.category}</p>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
-        {/* Lightbox Modal – DIPERBAIKI: center sempurna semua layar + X aman */}
+        {/* Lightbox Modal */}
         {selectedImage !== null && (
           <div
             className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 p-4 md:p-8"
             onClick={() => setSelectedImage(null)}
           >
-            {/* Tombol Close – posisi aman di pojok kanan atas */}
             <button
               className="absolute top-4 right-4 z-20 rounded-full bg-black/50 p-2 text-white transition-colors hover:text-orange-500 md:top-8 md:right-8"
               onClick={(e) => {
@@ -207,21 +237,17 @@ export function Gallery() {
               <X size={36} />
             </button>
 
-            {/* Container gambar + caption */}
             <div className="flex max-h-full w-full max-w-5xl flex-col items-center justify-center">
-              {/* Gambar – center sempurna, responsif, tidak crop */}
               <div className="relative flex max-h-[70vh] w-full items-center justify-center md:max-h-[80vh]">
                 <Image
                   src={filteredImages[selectedImage].url}
                   alt={filteredImages[selectedImage].title}
-                  width={1200}
-                  height={1200}
-                  className="max-h-full max-w-full rounded-2xl object-contain shadow-2xl"
+                  fill
+                  className="rounded-2xl object-contain shadow-2xl"
                   priority
                 />
               </div>
 
-              {/* Caption */}
               <div className="mt-6 px-4 text-center text-white">
                 <h3 className="mb-2 text-2xl font-bold md:text-3xl">
                   {filteredImages[selectedImage].title}

@@ -1,7 +1,6 @@
 'use client'
 
 import Image from 'next/image'
-import { motion } from 'framer-motion'
 import { cn } from '@/lib/cn'
 import {
   Calendar,
@@ -133,47 +132,25 @@ export function BlogPreview() {
     >
       <div className="container mx-auto max-w-7xl">
         {/* Title */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="mb-16 text-center"
-        >
+        <div className="mb-16 text-center">
           <h2 className="mb-4 text-4xl font-bold md:text-5xl">
-            Latest <span className="text-orange-500">Blog Posts</span>
+            Latest <span className="text-orange-500">BlogPosts</span>
           </h2>
           <p className="text-lg text-gray-600">
             Sharing my experiences and learnings 📝
           </p>
-        </motion.div>
+        </div>
 
-        {/* Grid */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-100px' }}
-          variants={{
-            hidden: {},
-            visible: {
-              transition: { staggerChildren: 0.12 },
-            },
-          }}
-          className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
-        >
+        {/* Grid Previews */}
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {blogPreviews.map((post, index) => {
             const Icon = post.icon
             return (
-              <motion.article
+              <article
                 key={index}
-                variants={{
-                  hidden: { opacity: 0, y: 40 },
-                  visible: { opacity: 1, y: 0 },
-                }}
-                whileHover={{ y: -12, scale: 1.02 }}
                 className={cn(
                   'group overflow-hidden rounded-2xl bg-white shadow-lg hover:shadow-2xl',
-                  'border border-gray-100 transition-all duration-500'
+                  'border border-gray-100 transition-all duration-500 hover:-translate-y-3'
                 )}
               >
                 {/* Image */}
@@ -184,6 +161,7 @@ export function BlogPreview() {
                     fill
                     className="object-cover transition-transform duration-500 group-hover:scale-110"
                   />
+                  {/* Category Badge */}
                   <div className="absolute top-4 left-4">
                     <span
                       className={cn(
@@ -197,6 +175,7 @@ export function BlogPreview() {
                       {post.category}
                     </span>
                   </div>
+                  {/* Share Button */}
                   <button
                     onClick={() => handleShare(post.title)}
                     className={cn(
@@ -221,6 +200,8 @@ export function BlogPreview() {
                   <p className="mb-4 line-clamp-3 text-sm text-gray-600">
                     {post.excerpt}
                   </p>
+
+                  {/* Meta */}
                   <div className="mb-5 flex items-center justify-between text-sm text-gray-500">
                     <div className="flex items-center gap-1.5">
                       <Calendar size={16} />
@@ -231,6 +212,8 @@ export function BlogPreview() {
                       <span>{post.readTime}</span>
                     </div>
                   </div>
+
+                  {/* Read More */}
                   <button
                     className={cn(
                       'flex items-center gap-2 text-sm font-medium text-orange-500',
@@ -241,19 +224,13 @@ export function BlogPreview() {
                     <ArrowRight size={18} />
                   </button>
                 </div>
-              </motion.article>
+              </article>
             )
           })}
-        </motion.div>
+        </div>
 
-        {/* View All */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.4 }}
-          className="mt-16 text-center"
-        >
+        {/* View All Button */}
+        <div className="mt-16 text-center">
           <button
             className={cn(
               'bg-gradient-to-r from-orange-500 to-pink-500 px-10 py-4 font-semibold text-white',
@@ -262,7 +239,7 @@ export function BlogPreview() {
           >
             View All Posts
           </button>
-        </motion.div>
+        </div>
       </div>
     </section>
   )

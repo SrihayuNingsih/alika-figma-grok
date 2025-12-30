@@ -1,6 +1,5 @@
 'use client'
 
-import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { cn } from '@/lib/cn'
 import {
@@ -21,43 +20,17 @@ export function AboutMe() {
       className="bg-gradient-to-b from-white to-orange-50 px-4 py-20"
     >
       <div className="container mx-auto max-w-6xl">
-        {/* Title – Animation */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 0.8 }}
-          className="mb-16 text-center"
-        >
+        {/* Title */}
+        <div className="mb-16 text-center">
           <h2 className="mb-4 text-4xl font-bold md:text-5xl">
             About <span className="text-orange-500">Me</span>
           </h2>
           <p className="text-lg text-gray-600">Get to know me better!</p>
-        </motion.div>
+        </div>
 
-        {/* Profile + Info – Animation from sides */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-100px' }}
-          variants={{
-            hidden: { opacity: 0 },
-            visible: {
-              opacity: 1,
-              transition: { staggerChildren: 0.2 },
-            },
-          }}
-          className="mb-16 grid items-center gap-12 md:grid-cols-2"
-        >
+        <div className="mb-16 grid items-center gap-12 md:grid-cols-2">
           {/* Profile Image */}
-          <motion.div
-            variants={{
-              hidden: { opacity: 0, x: -60 },
-              visible: { opacity: 1, x: 0 },
-            }}
-            transition={{ duration: 0.8 }}
-            className="relative"
-          >
+          <div className="relative">
             <div className="absolute -inset-4 rotate-3 rounded-3xl bg-gradient-to-r from-orange-400 to-pink-500" />
             <div className="relative rounded-3xl bg-white p-2 shadow-2xl">
               <Image
@@ -69,59 +42,22 @@ export function AboutMe() {
                 priority
               />
             </div>
-          </motion.div>
+          </div>
 
           {/* Profile Info */}
-          <motion.div
-            variants={{
-              hidden: { opacity: 0, x: 60 },
-              visible: { opacity: 1, x: 0 },
-            }}
-            transition={{ duration: 0.8 }}
-            className="space-y-6"
-          >
+          <div className="space-y-6">
             <div>
-              <motion.h3
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                transition={{ delay: 0.4 }}
-                className="mb-2 text-3xl font-bold"
-              >
-                Hi, I'm Alika!
-              </motion.h3>
-              <motion.p
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                transition={{ delay: 0.6 }}
-                className="text-lg leading-relaxed text-gray-600"
-              >
-                Saya seorang pelajar yang suka belajar hal-hal baru. Buatku,
-                belajar itu bukan cuma soal nilai, tapi juga tentang membuka
-                wawasan dan mencoba pengalaman baru. Kalau ada waktu luang dan
-                nggak berkutat dengan buku pelajaran, kamu bakal nemuin aku lagi
-                packing tas buat traveling ke tempat-tempat baru atau lagi sibuk
-                di dapur nyobain resep masakan yang lagi viral, apalagi kalau
-                hasilnya bisa dinikmati bareng keluarga atau teman.
-                <br />
-                Fotografi adalah caraku mengabadikan semua momen itu, karena
-                bagiku, kamera adalah cara terbaik untuk menghentikan waktu.{' '}
-                <span className="font-bold text-orange-600 italic">
-                  Life is an adventure, and I'm just here to capture it all!
-                </span>
-              </motion.p>
+              <h3 className="mb-2 text-3xl font-bold">Hi, I'm Alika!</h3>
+              <p className="text-lg leading-relaxed text-gray-600">
+                Saya seorang pelajar yang passionate tentang berbagai hal
+                menarik dalam hidup. Saya percaya bahwa setiap hari adalah
+                kesempatan untuk belajar sesuatu yang baru dan berbagi
+                pengalaman dengan orang lain.
+              </p>
             </div>
 
-            {/* Info Cards – Stagger */}
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={{
-                hidden: {},
-                visible: { transition: { staggerChildren: 0.1 } },
-              }}
-              className="grid grid-cols-2 gap-4"
-            >
+            {/* Info Cards */}
+            <div className="grid grid-cols-2 gap-4">
               {[
                 {
                   icon: GraduationCap,
@@ -152,13 +88,8 @@ export function AboutMe() {
                   value: '4 Hobbies',
                 },
               ].map((item, i) => (
-                <motion.div
+                <div
                   key={i}
-                  variants={{
-                    hidden: { opacity: 0, y: 20 },
-                    visible: { opacity: 1, y: 0 },
-                  }}
-                  whileHover={{ scale: 1.05 }}
                   className="rounded-xl bg-white p-4 shadow-md transition-shadow hover:shadow-lg"
                 >
                   <div className="flex items-center gap-3">
@@ -178,25 +109,14 @@ export function AboutMe() {
                       <p className="font-medium text-gray-800">{item.value}</p>
                     </div>
                   </div>
-                </motion.div>
+                </div>
               ))}
-            </motion.div>
-          </motion.div>
-        </motion.div>
+            </div>
+          </div>
+        </div>
 
-        {/* Hobbies – Stagger + Hover Lift */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={{
-            hidden: {},
-            visible: {
-              transition: { staggerChildren: 0.15 },
-            },
-          }}
-          className="grid gap-6 md:grid-cols-4"
-        >
+        {/* Hobbies */}
+        <div className="grid gap-6 md:grid-cols-4">
           {[
             {
               icon: BookOpen,
@@ -223,15 +143,10 @@ export function AboutMe() {
               desc: 'Capturing beautiful moments and telling stories through my lens is my passion.',
             },
           ].map((hobby, i) => (
-            <motion.div
+            <div
               key={i}
-              variants={{
-                hidden: { opacity: 0, y: 40, scale: 0.9 },
-                visible: { opacity: 1, y: 0, scale: 1 },
-              }}
-              whileHover={{ scale: 1.05, y: -10 }}
               className={cn(
-                'transform rounded-2xl p-6 text-white transition-transform',
+                'transform rounded-2xl p-6 text-white transition-transform hover:scale-105',
                 `bg-gradient-to-br ${hobby.gradient}`
               )}
             >
@@ -242,24 +157,18 @@ export function AboutMe() {
               <p className="text-sm leading-relaxed text-white/90">
                 {hobby.desc}
               </p>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
 
-        {/* Personal Statement – Animation */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.4, duration: 0.8 }}
-          className="mt-16 rounded-3xl bg-gradient-to-r from-orange-500 to-pink-500 p-8 text-center text-white md:p-12"
-        >
+        {/* Personal Statement */}
+        <div className="mt-16 rounded-3xl bg-gradient-to-r from-orange-500 to-pink-500 p-8 text-center text-white md:p-12">
           <p className="text-xl leading-relaxed font-medium md:text-2xl">
             "Through this blog, I want to share my journey as a student who's
             constantly learning, exploring, creating, and capturing life's
             beautiful moments. Join me in this adventure!"
           </p>
-        </motion.div>
+        </div>
       </div>
     </section>
   )
