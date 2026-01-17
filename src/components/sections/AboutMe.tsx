@@ -10,10 +10,12 @@ import {
   Utensils,
   BookOpen,
   Sparkles,
+  Heart,
 } from 'lucide-react'
+import type { Variants } from 'framer-motion'
 import { Patrick_Hand, Fredoka } from 'next/font/google'
 
-// --- Fonts Setup ---
+// Font Setup
 const patrickHand = Patrick_Hand({
   weight: '400',
   subsets: ['latin'],
@@ -26,121 +28,100 @@ const fredoka = Fredoka({
   variable: '--font-heading',
 })
 
-// --- Animation Variants ---
-const floatVariant = {
+// Animation Variants
+const floatVariant: Variants = {
   animate: {
     y: [0, -10, 0],
     transition: { duration: 3, repeat: Infinity, ease: 'easeInOut' },
   },
 }
 
-const popInVariant = {
+const popInVariant: Variants = {
   hidden: { scale: 0.8, opacity: 0 },
   visible: {
     scale: 1,
     opacity: 1,
-    transition: { type: 'spring', bounce: 0.5 },
+    transition: { type: 'spring', bounce: 0.5, delay: 0.3 },
   },
+}
+
+const fadeInVariant: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
 }
 
 export function AboutMe() {
   return (
     <div
-      className={`relative min-h-screen overflow-hidden bg-[#FFFBF0] ${patrickHand.variable} ${fredoka.variable} font-hand text-gray-700`}
+      className={
+        '${patrickHand.variable} ${fredoka.variable} font-hand relative min-h-screen overflow-hidden bg-gradient-to-b from-blue-100/60 via-white to-yellow-50/60 text-gray-800'
+      }
     >
-      {/* --- BACKGROUND ELEMENTS (Watercolors & Landscapes) --- */}
+      {/*Background Elements */}
+      {/* Sky Gradient */}
+      <div className="absolute inset-0 -z-20 bg-gradient-to-b from-blue-200/50 to-green-100/30" />
 
-      {/* Sky/Clouds Texture (Gradient base) */}
-      <div className="absolute inset-0 -z-20 bg-gradient-to-b from-blue-100/50 via-white to-orange-50/50" />
-
-      {/* Background Mountain (Illustration) */}
-      <div className="pointer-events-none absolute top-0 right-0 -z-10 h-64 w-full opacity-80 md:h-96 md:w-2/3">
-        {/* Simple SVG Shape for Mountain */}
+      {/* Background Mountain SVG */}
+      <div className="w-fullopacity-70 absolute top-0 right-0 -z-10 h-1/2 md:h-2/3 md:w-1/2">
         <svg
           viewBox="0 0 1440 320"
-          className="h-full w-full fill-current object-cover object-top text-green-100"
+          className="h-full w-full fill-current text-green-200/80"
         >
           <path
-            fill="#e2e8f0"
-            fillOpacity="1"
-            d="M0,224L60,213.3C120,203,240,181,360,186.7C480,192,600,224,720,218.7C840,213,960,171,1080,149.3C1200,128,1320,128,1380,128L1440,128L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"
-          ></path>
+            fill="currentColor"
+            d="MO,224L60,213.3C120,203,240,181,360,186.7C480,192,600,224,720,218.7C840,213,960,171,1080,149.3C1200,128,1320,128,1390,128L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"
+          />
         </svg>
       </div>
 
-      {/* Decorative Plane Top Left */}
+      {/* Decorative Plane */}
       <motion.div
         variants={floatVariant}
         animate="animate"
-        className="absolute top-10 left-5 z-0 rotate-12 text-yellow-400 md:left-20"
+        className="absolute top-4 left-4 z-10 md:top-8 md:left-8"
       >
-        <Plane
-          size={48}
-          fill="currentColor"
-          strokeWidth={1.5}
-          className="text-orange-400 drop-shadow-sm"
-        />
-        <div className="absolute top-4 left-10 w-24 -rotate-6 border-t-4 border-dotted border-blue-200" />
+        <Plane className="h-12 w-12 rotate-[-15deg] text-orange-500 drop-shadow-md" />
       </motion.div>
 
-      {/* Decorative Mountain Peak Top Right */}
-      <div className="absolute top-0 right-0 z-0 h-40 w-40 opacity-90 md:right-10">
+      {/* Decorative Volcano (Using Unsplash watercolor mountain) */}
+      <div className="absolute top-0 right-0 z-0 h-32 w-32 opacity-80 md:h-48 md:w-48">
         <Image
           src="https://images.unsplash.com/photo-1575351657682-ba637042a420?auto=format&fit=crop&q=80&w=300"
-          alt="Mountain watercolor"
+          alt="Watercolor Mountain"
           width={300}
           height={300}
-          className="mask-gradient-to-b rounded-full object-cover opacity-60 blur-[1px]"
+          className="rounded-full object-cover opacity-70 blur-sm"
         />
       </div>
 
-      {/* --- MAIN CONTENT --- */}
-      <div className="relative z-10 container mx-auto max-w-6xl px-0 py-12 md:py-20">
-        {/* Header Title Centered */}
-        <div className="relative mb-12 flex items-center justify-center">
-          <motion.div
-            initial={{ y: -50, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            className="relative"
-          >
-            {/* Curved Line Background SVG */}
-            <svg
-              className="absolute -bottom-6 left-1/2 -z-10 h-8 w-64 -translate-x-1/2 text-orange-200"
-              viewBox="0 0 200 30"
-              fill="none"
-            >
-              <path
-                d="M10,20 Q100,5 190,20"
-                stroke="currentColor"
-                strokeWidth="8"
-                strokeLinecap="round"
-              />
-            </svg>
-
-            <h1 className="font-heading rotate-[-2deg] text-5xl font-bold tracking-tight text-teal-600 drop-shadow-sm md:text-6xl">
+      {/* Main Content */}
+      <div className="relative z-10 container mx-auto max-w-5xl px-4 py-8 md:py-16 lg:py-24">
+        {/* Header Title */}
+        <motion.div
+          variants={fadeInVariant}
+          initial="hidden"
+          animate="visible"
+          className="mb-8 flex justify-center md:mb-12"
+        >
+          <div className="relative inline-block">
+            <h1 className="font-heading text-4xl font-bold text-pink-500 drop-shadow-sm md:text-6xl">
               About Me
             </h1>
-
-            {/* Camera Icon next to title */}
-            <div className="absolute -top-2 -right-12 rotate-12 rounded-full border border-gray-200 bg-white p-1 shadow-sm">
-              <Camera className="text-gray-700" size={28} />
-            </div>
-
-            {/* Sparkles */}
-            <Sparkles
-              className="absolute top-0 -left-8 animate-pulse text-yellow-400"
-              size={24}
+            <Camera
+              className="absolute top-0 right-[-20px] text-gray-600"
+              size={32}
             />
-          </motion.div>
-        </div>
+          </div>
+        </motion.div>
 
-        <div className="grid grid-cols-1 items-stretch gap-12 md:grid-cols-2">
-          {/* --- LEFT COLUMN: TEXT CONTENT --- */}
+        {/* Grid Layout */}
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-12">
+          {/* Left Column: Text */}
           <motion.div
-            initial={{ x: -50, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            className="space-y-6"
+            variants={fadeInVariant}
+            initial="hidden"
+            animate="visible"
+            className="space-y-4 md:space-y-6"
           >
             {/* Badge: Hi! Aku Alika! */}
             <div className="relative inline-block rotate-[-2deg]">
@@ -152,7 +133,7 @@ export function AboutMe() {
             </div>
 
             {/* Intro Text */}
-            <p className="text-xl leading-relaxed text-gray-800 md:text-2xl">
+            <p className="text-lg leading-relaxed text-gray-800 md:text-2xl">
               I’m a 5<sup className="text-sm">th</sup> grade student yang suka
               belajar dan mencoba hal-hal baru.
             </p>
@@ -198,7 +179,7 @@ export function AboutMe() {
                   title="Cooking"
                   suffix="simple recipes at home"
                   titleColor="text-orange-600"
-                  imgIcon="/egg-icon.png" // Placeholder logic
+                  //imgIcon="/egg-icon.png" // Placeholder logic
                 />
                 <ListItem
                   icon={<Camera className="text-gray-600" size={24} />}
@@ -222,8 +203,8 @@ export function AboutMe() {
             </div>
           </motion.div>
 
-          {/* --- RIGHT COLUMN: PHOTO POP-OUT --- */}
-          <div className="relative mt-8 flex h-auto min-h-[500px] justify-center overflow-visible md:mt-0">
+          {/* Right Column: Photo Frame */}
+          <div className="relative mt-8 flex justify-center md:mt-0">
             {/* Decorative Floating Elements around Photo */}
             <motion.div
               variants={floatVariant}
@@ -248,56 +229,46 @@ export function AboutMe() {
               variants={popInVariant}
               initial="hidden"
               animate="visible"
-              className="relative w-[360px] overflow-visible md:w-[420px]"
+              className="relative h-[480px] w-[360px] md:h-[560px] md:w-[420px]"
             >
               {/* The White Frame (Rotated & Torn effect) */}
-              <div
-                className="relative flex h-full w-full flex-col overflow-hidden rounded-sm border-4 border-white bg-white p-4 pb-10 shadow-xl"
-                style={{
-                  clipPath:
-                    'polygon(0 30%, 30% 0, 70% 10%, 100% 40%, 100% 100%, 0 100%)',
-                }}
-              >
+              <div className="absolute inset-x-4 top-12 bottom-0 z-0 flex rotate-[-3deg] flex-col items-center justify-end rounded-sm border border-gray-100 bg-white p-4 pb-8 shadow-xl">
                 {/* Inner textural background inside frame */}
-                <div
-                  className="relative h-full w-full overflow-hidden rounded-sm bg-gray-100 pb-10 opacity-50"
-                  style={{
-                    clipPath:
-                      'polygon(0 28%, 35% 0, 65% 8%, 100% 35%, 100% 100%, 0 100%)',
-                  }}
-                >
+                <div className="relative h-full w-full overflow-hidden rounded-sm bg-gray-100 opacity-50">
                   <Image
                     src="https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&q=80&w=1000"
                     alt="Background texture"
                     fill
-                    className="object-cover opacity-40"
+                    className="object-cover opacity-80"
                   />
-                  {/* THE GIRL IMAGE (Pop-out logic) NOTE: For the best pop-out effect, the image needs to be a transparent PNG (cutout) 
-                  of the person. The bottom is clipped, head sticks out. */}
+                </div>
+              </div>
 
-                  <div className="relative h-full w-full overflow-visible pt-2">
-                    {/* Using a placeholder image. 
+              {/* THE GIRL IMAGE (Pop-out logic) 
+                  NOTE: For the best pop-out effect, the image needs to be a transparent PNG (cutout) 
+                  of the person. The bottom is clipped, head sticks out.
+              */}
+              <div className="absolute bottom-6 left-1/2 z-10 h-[110%] w-[90%] -translate-x-1/2">
+                {/* Using a placeholder image. 
                    In a real scenario, use a transparent PNG of the girl here.
                    The 'object-contain' and 'bottom' positioning helps simulate the pop-out if image has transparency.
                  */}
-                    <Image
-                      src="/images/aboutme.png" // Ganti dengan foto transparan Anda
-                      alt="Alika Portrait"
-                      fill
-                      className="mask-popout drop-shadow-[0_-20px_35px_rgba(0,0,0,0.4) -top-40 scale-[1.15] rounded-b-lg object-cover object-top shadow-inner"
-                      // Style hack: rounded bottom to fit frame, top is free
-                      style={{
-                        borderRadius: '0 0 10px 10px',
-                        maskImage:
-                          'linear-gradient(to bottom, transparent 0%, black 60%, black 100%)', // Simple mask
-                      }}
-                    />
+                <Image
+                  src="/images/aboutme.png" // Ganti dengan foto transparan Anda
+                  alt="Alika Portrait"
+                  fill
+                  className="mask-popout rounded-b-lg object-cover object-top pl-4 shadow-inner"
+                  // Style hack: rounded bottom to fit frame, top is free
+                  style={{
+                    borderRadius: '0 0 10px 10px',
+                    maskImage:
+                      'linear-gradient(to bottom, black 80%, black 100%)', // Simple mask
+                  }}
+                />
 
-                    {/* If you have a real transparent PNG, remove styling above and use this:
+                {/* If you have a real transparent PNG, remove styling above and use this:
                  <Image src="/alika-cutout.png" width={400} height={500} className="absolute bottom-0 drop-shadow-xl" />
                  */}
-                  </div>
-                </div>
               </div>
 
               {/* Decorative Frame Elements (Tape, Camera) */}
