@@ -223,7 +223,7 @@ export function AboutMe() {
           </motion.div>
 
           {/* --- RIGHT COLUMN: PHOTO POP-OUT --- */}
-          <div className="relative mt-8 flex h-full justify-center md:mt-0">
+          <div className="relative mt-8 flex h-auto min-h-[500px] justify-center overflow-visible md:mt-0">
             {/* Decorative Floating Elements around Photo */}
             <motion.div
               variants={floatVariant}
@@ -252,9 +252,10 @@ export function AboutMe() {
             >
               {/* The White Frame (Rotated & Torn effect) */}
               <div
-                className="relative flex h-full w-full flex-col overflow-hidden rounded-sm border border-gray-100 bg-white p-4 pb-10 shadow-xl"
+                className="relative flex h-full w-full flex-col overflow-hidden rounded-sm border-4 border-white bg-white p-4 pb-10 shadow-xl"
                 style={{
-                  clipPath: 'polygon(0 15%, 100% 0, 100% 100%, 0 100%)',
+                  clipPath:
+                    'polygon(0 30%, 30% 0, 70% 10%, 100% 40%, 100% 100%, 0 100%)',
                 }}
               >
                 {/* Inner textural background inside frame */}
@@ -262,7 +263,7 @@ export function AboutMe() {
                   className="relative h-full w-full overflow-hidden rounded-sm bg-gray-100 pb-10 opacity-50"
                   style={{
                     clipPath:
-                      'polygon(0 12%, 50% 0, 100% 12%, 100% 100%, 0 100%)',
+                      'polygon(0 28%, 35% 0, 65% 8%, 100% 35%, 100% 100%, 0 100%)',
                   }}
                 >
                   <Image
@@ -274,7 +275,7 @@ export function AboutMe() {
                   {/* THE GIRL IMAGE (Pop-out logic) NOTE: For the best pop-out effect, the image needs to be a transparent PNG (cutout) 
                   of the person. The bottom is clipped, head sticks out. */}
 
-                  <div className="relative h-full w-full overflow-hidden pt-2">
+                  <div className="relative h-full w-full overflow-visible pt-2">
                     {/* Using a placeholder image. 
                    In a real scenario, use a transparent PNG of the girl here.
                    The 'object-contain' and 'bottom' positioning helps simulate the pop-out if image has transparency.
@@ -283,12 +284,12 @@ export function AboutMe() {
                       src="/images/aboutme.png" // Ganti dengan foto transparan Anda
                       alt="Alika Portrait"
                       fill
-                      className="mask-popout scale-[1.08] rounded-b-lg object-cover object-top shadow-inner drop-shadow-[0_-10px_25px_rgba(0,0,0,0.25)]"
+                      className="mask-popout drop-shadow-[0_-20px_35px_rgba(0,0,0,0.4) -top-40 scale-[1.15] rounded-b-lg object-cover object-top shadow-inner"
                       // Style hack: rounded bottom to fit frame, top is free
                       style={{
                         borderRadius: '0 0 10px 10px',
                         maskImage:
-                          'linear-gradient(to bottom, black 70%, transparent 100%)', // Simple mask
+                          'linear-gradient(to bottom, transparent 0%, black 60%, black 100%)', // Simple mask
                       }}
                     />
 
