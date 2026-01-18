@@ -53,7 +53,6 @@ const fadeInVariant: Variants = {
 export function AboutMe() {
   return (
     <div
-      id="about"
       className={
         '${patrickHand.variable} ${fredoka.variable} font-hand relative min-h-screen overflow-hidden bg-gradient-to-b from-blue-100/60 via-white to-yellow-50/60 text-gray-800'
       }
@@ -109,32 +108,20 @@ export function AboutMe() {
               About Me
             </h1>
             <Camera
-              className="absolute top-0 right-[-60px] text-gray-600"
+              className="absolute top-0 right-[-20px] text-gray-600"
               size={32}
             />
-            <svg
-              className="pointer-events-none absolute -bottom-4 left-0 h-3 w-full text-orange-300"
-              viewBox="0 0 300 10"
-              preserveAspectRatio="none"
-            >
-              <path
-                d="M5,5 Q150,-10 295,2"
-                stroke="currentColor"
-                strokeWidth="5"
-                fill="none"
-              />
-            </svg>
           </div>
         </motion.div>
 
         {/* Grid Layout */}
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-8">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-12">
           {/* Left Column: Text */}
           <motion.div
             variants={fadeInVariant}
             initial="hidden"
             animate="visible"
-            className="space-y-4 px-4 md:space-y-6"
+            className="space-y-4 md:space-y-6"
           >
             {/* Badge: Hi! Aku Alika! */}
             <div className="relative inline-block rotate-[-2deg]">
@@ -147,7 +134,7 @@ export function AboutMe() {
 
             {/* Intro Text */}
             <p className="text-lg leading-relaxed text-gray-800 md:text-2xl">
-              I’m a 4<sup className="text-sm">th</sup> grade student yang suka
+              I’m a 5<sup className="text-sm">th</sup> grade student yang suka
               belajar dan mencoba hal-hal baru.
             </p>
 
@@ -242,39 +229,17 @@ export function AboutMe() {
               variants={popInVariant}
               initial="hidden"
               animate="visible"
-              className="relative h-[480px] w-[360px] md:h-[480px] md:w-[440px]"
+              className="relative h-[480px] w-[360px] md:h-[560px] md:w-[420px]"
             >
               {/* The White Frame (Rotated & Torn effect) */}
-
-              <div className="absolute inset-x-4 top-12 bottom-0 z-0 flex rotate-[-3deg] flex-col items-center justify-end overflow-hidden rounded-sm p-4 pb-8 shadow-xl">
+              <div className="absolute inset-x-4 top-12 bottom-0 z-0 flex rotate-[-3deg] flex-col items-center justify-end rounded-sm border border-gray-100 bg-white p-4 pb-8 shadow-xl">
                 {/* Inner textural background inside frame */}
-                {/* Irregular torn top mask */}
-                <svg
-                  viewBox="0 0 400 80"
-                  preserveAspectRatio="none"
-                  className="opacity=0.98 absolute top-0 left-0 z-10 h-[55%] w-full"
-                >
-                  <path
-                    d="
-      M0,60
-      C40,40 80,70 120,45
-      C160,20 200,55 240,40
-      C280,25 320,60 360,35
-      C380,25 400,30 400,30
-      L400,0
-      L0,0
-      Z
-    "
-                    fill="white"
-                  />
-                </svg>
-
-                <div className="relative h-full w-full overflow-hidden rounded-sm opacity-50">
+                <div className="relative h-full w-full overflow-hidden rounded-sm bg-gray-100 opacity-50">
                   <Image
                     src="https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&q=80&w=1000"
                     alt="Background texture"
                     fill
-                    className="object-cover opacity-90"
+                    className="object-cover opacity-80"
                   />
                 </div>
               </div>
@@ -283,7 +248,7 @@ export function AboutMe() {
                   NOTE: For the best pop-out effect, the image needs to be a transparent PNG (cutout) 
                   of the person. The bottom is clipped, head sticks out.
               */}
-              <div className="absolute bottom-6 left-1/2 z-10 h-[115%] w-[90%] -translate-x-1/2 md:h-[140%]">
+              <div className="absolute bottom-6 left-1/2 z-10 h-[110%] w-[90%] -translate-x-1/2">
                 {/* Using a placeholder image. 
                    In a real scenario, use a transparent PNG of the girl here.
                    The 'object-contain' and 'bottom' positioning helps simulate the pop-out if image has transparency.
